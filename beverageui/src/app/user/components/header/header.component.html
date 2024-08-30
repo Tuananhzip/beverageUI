@@ -1,0 +1,57 @@
+<header class="bg-green-700 text-white">
+    <nav class="flex items-center justify-between px-12 h-20">
+        <a href="#" class="text-base lg:text-2xl font-bold border-2 px-2 py-1 text-nowrap">TA Coffee</a>
+        <ng-container *ngIf="!isMobileView" [ngTemplateOutlet]="menuWebsite"></ng-container>
+        <ng-container *ngIf="isMobileView" [ngTemplateOutlet]="menuMobile"></ng-container>
+    </nav>
+</header>
+
+<ng-template #menuMobile>
+    <div *ngIf="isMenuOpen"
+        class="absolute top-[80px] left-0 w-full flex flex-col gap-6 items-center py-2 text-lg font-bold bg-green-700 opacity-80">
+        <ul class="flex flex-col items-center gap-6 text-white">
+            <li class="hover:text-orange-400 transition duration-300 ease-in-out cursor-pointer text-base">Home</li>
+            <li class="hover:text-orange-400 transition duration-300 ease-in-out cursor-pointer text-base">Products</li>
+            <li class="hover:text-orange-400 transition duration-300 ease-in-out cursor-pointer text-base">Bread and
+                Cake</li>
+            <li class="hover:text-orange-400 transition duration-300 ease-in-out cursor-pointer text-base">Service</li>
+            <li class="hover:text-orange-400 transition duration-300 ease-in-out cursor-pointer text-base">About Us</li>
+        </ul>
+        <div class="flex flex-col items-center gap-6">
+            <button *ngIf="userId" class="hover:scale-110 transition duration-300 ease-in-out">{{userId}}</button>
+            <button *ngIf="!userId" class="hover:scale-110 hover:underline transition duration-300 ease-in-out"
+                (click)="login()">Login</button>
+            <button *ngIf="!userId"
+                class="hover:scale-110 transition duration-300 ease-in-out bg-orange-400 rounded-lg px-2 py-1 text-nowrap"
+                (click)="signUp()">Sign Up</button>
+        </div>
+    </div>
+    <div class="cursor-pointer rounded-full px-2 py-1"
+        [ngClass]="{ 'bg-orange-400 transition duration-300 ease-in-out': isMenuOpen}" (click)="toggleMenu()">
+        <i class="fa-solid fa-bars fa-lg"></i>
+    </div>
+</ng-template>
+<ng-template #menuWebsite>
+    <div class="w-full flex justify-center items-center py-2 text-sm lg:text-xl font-bold">
+        <ul class="flex items-center gap-8 text-white">
+            <li class="hover:text-orange-400 transition duration-300 ease-in-out cursor-pointer" [innerText]="'Home'">
+            </li>
+            <li class="hover:text-orange-400 transition duration-300 ease-in-out cursor-pointer"
+                [innerText]="'Products'"></li>
+            <li class="hover:text-orange-400 transition duration-300 ease-in-out cursor-pointer"
+                [innerText]="'Bread and Cake'"></li>
+            <li class="hover:text-orange-400 transition duration-300 ease-in-out cursor-pointer"
+                [innerText]="'Service'"></li>
+            <li class="hover:text-orange-400 transition duration-300 ease-in-out cursor-pointer"
+                [innerText]="'About Us'"></li>
+        </ul>
+    </div>
+    <div class="flex items-center gap-6 text-lg font-bold">
+        <button *ngIf="userId" class="hover:scale-110 transition duration-300 ease-in-out">{{userId}}</button>
+        <button *ngIf="!userId" class="hover:scale-110 hover:underline transition duration-300 ease-in-out"
+            (click)="login()">Login</button>
+        <button *ngIf="!userId"
+            class="hover:scale-110 transition duration-300 ease-in-out bg-orange-400 rounded-lg px-2 py-1 text-nowrap"
+            (click)="signUp()">Sign Up</button>
+    </div>
+</ng-template>
