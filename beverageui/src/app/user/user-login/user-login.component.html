@@ -1,4 +1,4 @@
-<div class="min-h-screen flex items-center justify-center bg-green-100 p-4">
+<div class="min-h-screen flex items-center justify-center bg-green-100 p-4 mt-[80px]">
     <div class="bg-white shadow-lg max-w-3xl w-full">
         <div class="flex flex-row">
             <div class="w-1/2 flex flex-col items-center justify-center p-4">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="flex justify-center">
                         <span class="me-1">Don't have an account?</span>
-                        <span class="text-green-500 font-bold cursor-pointer hover:underline" (click)="signUp()">Sign up</span>
+                        <span class="text-green-500 font-bold cursor-pointer hover:underline" [routerLink]="'/user/signup'">Sign up</span>
                     </div>
                 </form> 
             </div>

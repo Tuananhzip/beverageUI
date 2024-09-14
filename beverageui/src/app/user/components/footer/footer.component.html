@@ -1,4 +1,32 @@
-<footer>
-    <div>sdadsa</div>
+<footer class="bg-green-700 text-white p-10 shadow-md z-50">
+    <div class="grid grid-cols-3 gap-3">
+        <ul>
+            <li class="pb-2 font-bold text-2xl" [innerText]="'About Us'"></li>
+            <li class="li-effect" [innerText]="'Our company'"></li>
+            <li class="li-effect" [innerText]="'Our coffee'"></li>
+            <li class="li-effect" [innerText]="'Stories and News'"></li>
+            <li class="li-effect" [innerText]="'Customer Service'"></li>
+            <li class="li-effect" [innerText]="'Contact Us'"></li>
+        </ul>
+        <ul>
+            <li class="pb-2 font-bold text-2xl" [innerText]="'For Business Partners'"></li>
+            <li class="li-effect" [innerText]="'Office and Foodservice Coffee'"></li>
+            <li class="li-effect" [innerText]="'Suppliers'"></li>
+            <li class="li-effect" [innerText]="'Corporate Gift Card Sales'"></li>
+            <li class="li-effect" [innerText]="'Landlord Support Center'"></li>
+        </ul>
+        <div class="flex flex-col">
+            <p class="pb-2 font-bold text-2xl" [innerText]="'Follow Us'"></p>
+            <div class="flex flex-row gap-4">
+                <i class="fa-brands fa-facebook text-2xl"></i>
+                <i class="fa-brands fa-instagram text-2xl"></i>
+                <i class="fa-brands fa-twitter text-2xl"></i>
+                <i class="fa-brands fa-threads text-2xl"></i>
+                <i class="fa-brands fa-x-twitter text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="text-center font-semibold">
+        © {{currentYear}} TA Coffee Company. All rights reserved.
+    </div>
 </footer>
-<button (click)="logout()">logout</button>

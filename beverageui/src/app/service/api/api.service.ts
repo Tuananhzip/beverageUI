@@ -10,4 +10,8 @@ export class ApiService {
   getAuthUrl(param: string): string {
     return `${this.baseUrl}/Authentication/${param}`;
   }
+
+  getCustomersUrl(param: string): string {
+    return `${this.baseUrl}/Customers/${param}`;
+  }
 }

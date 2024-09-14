@@ -1,23 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from '../../../service/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isMenuOpen: boolean = false;
   isMobileView: boolean = false;
   userId: string = '';
-  
+  user: any = {};
   constructor(private authService: AuthService, private router: Router) {
     this.checkWindowSize();
-    this.userId = this.authService.getUserId() ?? '';
+    this.infoUser();
+  }
+
+  infoUser(){
+    this.userId = this.authService.getUserId() ?? ''; 
+    this.user = this.authService.getInfoUser(this.userId);
+  }
+
+  ngOnInit(): void {
+    
   }
   
   toggleMenu() {
@@ -32,11 +41,7 @@ export class HeaderComponent {
     this.isMobileView = window.innerWidth < 768; 
   }
 
-  signUp(){
-    this.router.navigate(['signup']);
-  }
-
-  login(){
-    this.router.navigate(['login']);
+  logout(){
+    this.authService.logout();
   }
 }

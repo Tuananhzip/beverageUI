@@ -1,4 +1,4 @@
-<div class="min-h-screen flex items-center justify-center bg-green-100 p-4">
+<div class="min-h-screen flex items-center justify-center bg-green-100 p-4 mt-[80px]">
     <div class="bg-white shadow-lg max-w-3xl w-full">
         <div class="flex flex-row">
             <div class="w-1/2 flex flex-col items-center justify-center p-4">
@@ -63,7 +63,7 @@
                     <hr class="border-t-2 border-gray-300 my-4 mx-20">
                     <div class="flex justify-center">
                         <span class="me-1">Have an account?</span>
-                        <span class="text-green-500 font-bold cursor-pointer hover:underline" (click)="login()">Log in</span>
+                        <span class="text-green-500 font-bold cursor-pointer hover:underline" [routerLink]="'/user/login'">Login</span>
                     </div>
                 </form> 
             </div>

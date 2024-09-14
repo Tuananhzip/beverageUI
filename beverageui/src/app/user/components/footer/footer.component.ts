@@ -9,9 +9,5 @@ import { AuthService } from '../../../service/auth/auth.service';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-  constructor(private authService: AuthService) { }
-
-  logout(){
-    this.authService.logout();
-  }
+  currentYear: number = new Date().getFullYear();
 }

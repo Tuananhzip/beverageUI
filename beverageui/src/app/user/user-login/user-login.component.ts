@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ToastService } from '../../service/toast/toast.service';
-import { catchError } from 'rxjs';
 
 
 @Component({
@@ -11,6 +10,7 @@ import { catchError } from 'rxjs';
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './user-login.component.html',
   styleUrl: './user-login.component.scss'
@@ -21,7 +21,9 @@ export class UserLoginComponent implements OnInit{
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
-  constructor(private auth: AuthService, private router: Router, private toast: ToastService){}
+  constructor(private auth: AuthService, private router: Router, private toast: ToastService){
+    
+  }
    ngOnInit(): void {
    }
    onSubmit() {
@@ -32,7 +34,9 @@ export class UserLoginComponent implements OnInit{
         next: (res) => {
           if(res?.token && res?.refreshToken && res?.userId){
             this.auth.setSession(res.token, res.refreshToken, res.userId);
-            this.router.navigate(['user/home']);
+            this.router.navigateByUrl('user/home').then(() => {
+              window.location.reload();
+            });
           }
         },
         error: (err) => this.toast.showError(err.error),
@@ -40,8 +44,5 @@ export class UserLoginComponent implements OnInit{
     } else {
       this.toast.showWarning('Please enter valid email and password');
     }
-  }
-  signUp(){
-    this.router.navigate(['signup']);
   }
 }

@@ -11,9 +11,9 @@ export const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
-    path: '',
+    path: 'user',
     component: UserLayoutComponent,
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'user' }
 ];

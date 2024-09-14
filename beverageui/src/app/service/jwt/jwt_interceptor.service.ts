@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHandlerFn, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { catchError, Observable, switchMap } from "rxjs";
+import { catchError, Observable, switchMap, throwError } from "rxjs";
 import { AuthService } from "../auth/auth.service";
 
 
@@ -15,7 +15,6 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) 
         Authorization: `Bearer ${token}`,
       },
     });
-    return next(req);
   }
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -34,6 +33,8 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) 
           })
         );
       } else {
+        authService.logout();
+        console.log(error);
         throw error;
       }
     })

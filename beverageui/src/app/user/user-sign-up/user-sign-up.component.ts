@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ToastService } from '../../service/toast/toast.service';
 
 @Component({
   selector: 'app-user-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './user-sign-up.component.html',
   styleUrl: './user-sign-up.component.scss'
 })
@@ -72,9 +72,5 @@ export class UserSignUpComponent implements OnInit{
         }
       }
     }
-  }
-  
-  login(){
-    this.router.navigate(['login']);
   }
 }

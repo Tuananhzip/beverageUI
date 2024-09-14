@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastService } from '../toast/toast.service';
 
@@ -11,6 +11,13 @@ import { ToastService } from '../toast/toast.service';
 export class AuthService {
 
   constructor(private http: HttpClient,private api: ApiService,private router: Router, private toast: ToastService) { }
+
+  adminLogin(email: string, password: string): Observable<any>{
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+    return this.http.post<any>(this.api.getAuthUrl('admin-login'), formData);
+  }
 
   login(email: string, password: string): Observable<any>{
     const formData = new FormData();
@@ -34,7 +41,7 @@ export class AuthService {
     if(!refreshToken){
       throw new Error('No refresh token found');
     }
-    return this.http.post<any>(this.api.getAuthUrl('refresh-token'), refreshToken).pipe(
+    return this.http.post<any>(this.api.getAuthUrl('refresh-token'), JSON.stringify(refreshToken), {headers: { 'Content-Type': 'text/plan' }}).pipe(
       tap(res =>{
         this.setSession(res.token, res.refreshToken);
       })
@@ -49,10 +56,15 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userId');
-    this.router.navigate(['/login']);
+    this.router.navigateByUrl('/user/home').then(()=>{
+      window.location.reload();
+    });
   }
 
   setSession(token: string, refreshToken: string, userId?: string){
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userId');
     localStorage.setItem('token', token);
     localStorage.setItem('refreshToken', refreshToken);
     if(userId){
@@ -68,7 +80,13 @@ export class AuthService {
     return localStorage.getItem('refreshToken');
   }
 
-  getUserId(): string | null{
+    getUserId(): string | null{
     return localStorage.getItem('userId');
+  }
+
+  getInfoUser(userId: string): any{
+    return this.http.get<any>(this.api.getCustomersUrl(userId )).subscribe((res)=>{
+      return res;
+    });
   }
 }
